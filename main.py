@@ -35,7 +35,10 @@ def main():
     photos = data.get("photos", [])
     answers = [{"id": p["id"], "lat": PRIOR_LAT, "lon": PRIOR_LON} for p in photos]
     if answers:
-        res = post("/answers", {"answers": answers})
+        try:
+            res = post("/answers", {"answers": answers})
+        except Exception:
+            res = post("/answers", {"answers": answers})
         print("answered:", res.get("answered"), "left:", res.get("left"))
     return 0
 
